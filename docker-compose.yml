@@ -1,6 +1,8 @@
 # clowder server
 clowder:
   image: ncsa/clowder:develop
+  environment:
+    RABBITMQ_URI: "amqp://guest:guest@rabbitmq:5672/%2f"
   ports:
     - "9000:9000"
   links:
@@ -23,5 +25,8 @@ rabbitmq:
 # start extractor
 wordcount:
   image: clowder_wordcount:latest
+  environment:
+    RABBITMQ_URI: "amqp://guest:guest@rabbitmq:5672/%2f"
   links:
     - rabbitmq
+    - clowder
