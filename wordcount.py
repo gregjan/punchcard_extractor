@@ -19,6 +19,8 @@ def main():
 # Process the file and upload the results
 def process_file(parameters):
     global extractorName
+
+    print parameters
     
     inputfile=parameters['inputfile']
 

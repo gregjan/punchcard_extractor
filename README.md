@@ -58,6 +58,11 @@ $ docker logs bdextractortemplate_clowder_1
 ```
  - Find the Clowder registration link in the log output. Point your browser at that link to complete registration, choosing a password.
  - NOTE: User registrations are persisted inside of the MongoDB container. They will remain as long as that container is not replaced with a new one.
+- Find the IP of the Clowder container and note this for later:
+```
+$ docker exec bdextractortemplate_clowder_1 ip -d addr | grep inet
+```
+Find the IP address of your clowder container, ignoring the "loopback" address, which is normally 127.0.0.1.
 
 ## Build and Start Example Extractor
 
