@@ -30,9 +30,10 @@ Docker Compose is run from within a python virtual environment for your project.
 Docker Compose will start and connect several Docker containers together to create an extractor runtime environment.
 It will also deploy your own project code into a Docker container that is connected to this runtime environment.
 
-1. Install prerequisite software. The install methods will depend on your operating system:
+1. Install prerequisite software. The installation methodology will depend up on your operating system:
  - VirtualBox (or an equivalent Docker-compatible virtualization environment)
- - Docker
+ - Docker Engine (instructions specific to your operating system can be found here https://docs.docker.com/engine/installation/)
+ - Docker Compose (for MAC and Windows, this is installed along with Docker Engine. For other operating systems, you might have to do additional steps.)
  - Python and PIP
  - Git
 
@@ -41,11 +42,12 @@ It will also deploy your own project code into a Docker container that is connec
         $ git clone https://opensource.ncsa.illinois.edu/bitbucket/scm/bd/bd-extractor-template.git <project name>
 
 ## Create Extractor Runtime Environment
-- Install Docker Compose
+- Install Docker Compose (if not already installed)
 ```
 $ pip install docker-compose
 ```
 - Start up the extractor runtime environment using Docker Compose. This starts docker containers for Clowder, MongoDB, and RabbitMQ:
+
 ```
 $ docker-compose up -d
 ```
@@ -149,21 +151,9 @@ then submitting a plain JSON dictionary will be fine.
 Your metadata will be processed into JSON-LD on the server-side and tagged with your extractor as the software agent.
 All values returned by your extractor will fall in a namespace particular to your extractor
 
-## Build Docker Image for Word Count Extractor
-
-    docker build -t clowder_wordcount .
-
-This will build an image called clowder_wordcount
-
-## Start Docker Containers
-
-    docker-compose up -d
-
-This will start the Clowder stack and the word count extractor in the background. See the docker-compose.yml for details.
-
 
 ## Stop Docker Containers
 
-    docker-compose down
+    docker-compose stop
 
-Or manually stop individual containers using a Docker desktop client.
+Or manually stop individual containers using a Docker desktop client (e.g. Kitematic).
