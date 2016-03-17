@@ -21,12 +21,3 @@ rabbitmq:
   ports:
     - "5672:5672"
     - "15672:15672"
-
-# start extractor
-wordcount:
-  image: clowder_wordcount:latest
-  environment:
-    RABBITMQ_URI: "amqp://guest:guest@rabbitmq:5672/%2f"
-  links:
-    - rabbitmq
-    - clowder
