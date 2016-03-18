@@ -103,6 +103,10 @@ then modify the test script to validate the extractor results are correct.
         $ ./tests.py
 4. The tests will fail of course, but you can look at the output logged to the console to see why they failed.
 
+## Stop Example Extractor
+ 
+You can stop the example extractor by either stopping the extractor container from Docker desktop client or by pressing CTRL+C from the Docker terminal running the extractor.
+
 ## Develop Extractor Code
 
 Now that we have sample files and failing tests, we can start to write code to make those tests pass.
