@@ -11,7 +11,7 @@ ENV RABBITMQ_URI="" \
     RABBITMQ_EXCHANGE="clowder" \
     RABBITMQ_VHOST="%2F" \
     RABBITMQ_QUEUE="wordCount" \
-    MAIN_SCRIPT="wordcount.py"
+    MAIN_SCRIPT="extractor.py"
 
 # Switch to clowder, copy files and be ready to run
 USER clowder
