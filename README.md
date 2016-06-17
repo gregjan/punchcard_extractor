@@ -37,7 +37,8 @@ It will also deploy your own project code into a Docker container that is connec
  - Python and PIP
  - Git
 
-2. Clone this extractor template project from the repository, substituting your extractor project name below:
+2. Clone this extractor template project from the repository, substituting your extractor project name below. 
+This clones the template project into a directory with name \<project_name\>:
 
         $ git clone https://opensource.ncsa.illinois.edu/bitbucket/scm/bd/bd-extractor-template.git <project_name>
 
@@ -46,7 +47,13 @@ It will also deploy your own project code into a Docker container that is connec
     
         $ pip install docker-compose
     
-- Start up the extractor runtime environment using Docker Compose. This starts docker containers for Clowder, MongoDB, and RabbitMQ:
+- Start up the extractor runtime environment using Docker Compose. This starts docker containers for Clowder, MongoDB, 
+and RabbitMQ. The running container names will be of the format *\<project_name_with_only_alphabets\>_\<container\>_\<count\>*, 
+where *\<project_name_with_only_alphabets\>* is basically the name of the folder to which the extractor template was 
+cloned ( *\<project_name\>* ) with spaces, hyphens and other special characters removed, *\<container\>* is the unique 
+name of the container that is provided in the docker-compose.yml file, and *\<count\>* specifies the instance number of 
+the docker container. For e.g. the first instance of a Mongo container started from a directory named *extractor-template* 
+will be *extractortemplate_mongo_1*. 
 
         $ docker-compose up -d
     
@@ -61,7 +68,7 @@ This assumes that you are running a single Docker machine. If not, please choose
     - Sign up for an account by entering an email address. Please note down the email address that you use.
     - View the logs for the Clowder container to get registration link:
 
-            $ docker logs bdextractortemplate_clowder_1 | grep signup
+            $ docker logs <project_name_with_only_alphabets>_clowder_1 | grep signup
 
     - Find the Clowder registration link in the log output. Point your browser at that link to complete registration, choosing a password.
     - NOTE: User registrations are persisted inside of the MongoDB container. They will remain as long as that container is not replaced with a new one.
@@ -79,7 +86,7 @@ You can run the command again and it will only perform the steps in the Dockerfi
 
 2. Run the Example Extractor:
 
-        $ docker run --rm -i -t --link bdextractortemplate_rabbitmq_1:rabbitmq example-extractor
+        $ docker run --rm -i -t --link <project_name_with_only_alphabets>_rabbitmq_1:rabbitmq example-extractor
 
 This command starts your extractor container and links it to the RabbitMQ container's shared ports.
 
@@ -126,7 +133,7 @@ PIP or other package managers can also be used to install dependencies and is th
 4. Redeploy the code into the runtime environment by rebuilding the extractor container and running it:
 
         $ docker build -t example-extractor .
-        $ docker run --rm -i -t --link bdextractortemplate_rabbitmq_1:rabbitmq example-extractor
+        $ docker run --rm -i -t --link <project_name_with_only_alphabets>_rabbitmq_1:rabbitmq example-extractor
 
 5. Run tests.py again:
 
