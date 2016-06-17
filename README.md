@@ -39,7 +39,7 @@ It will also deploy your own project code into a Docker container that is connec
 
 2. Clone this extractor template project from the repository, substituting your extractor project name below:
 
-        $ git clone https://opensource.ncsa.illinois.edu/bitbucket/scm/bd/bd-extractor-template.git <project name>
+        $ git clone https://opensource.ncsa.illinois.edu/bitbucket/scm/bd/bd-extractor-template.git <project_name>
 
 ## Create Extractor Runtime Environment
 - Install Docker Compose (if not already installed)
@@ -53,15 +53,15 @@ It will also deploy your own project code into a Docker container that is connec
 ## Create a Clowder Account
     
 - Clowder web application will be running at http://\<docker-machine-ip\>:9000 where \<docker-machine-ip\> can be found by running the following command.
-This assumes that you are running a single Docker machine. If not, please choose the appropriate IP address:
+This assumes that you are running a single Docker machine. If not, please choose the appropriate IP address. In Linux, \<docker-machine-ip\> is 127.0.0.1 or localhost.:
     
         $ docker-machine ip
         
     - Point your browser to the Clowder web application
-    - Sign up for an account by entering an email address. (Write this down)
+    - Sign up for an account by entering an email address. Please note down the email address that you use.
     - View the logs for the Clowder container to get registration link:
 
-        $ docker logs bdextractortemplate_clowder_1
+            $ docker logs bdextractortemplate_clowder_1 | grep signup
 
     - Find the Clowder registration link in the log output. Point your browser at that link to complete registration, choosing a password.
     - NOTE: User registrations are persisted inside of the MongoDB container. They will remain as long as that container is not replaced with a new one.
