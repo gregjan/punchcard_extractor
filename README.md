@@ -113,18 +113,27 @@ Now that we have sample files and failing tests, we can start to write code to m
 You'll also presumably modify your test code too, as you learn more about your extractor output.
 
 1. Edit extractor.py to add your data processing code in the commented areas.
-2. In particular, make sure you edit the MIME type filter (link to line) so that your extractor will only run on relevant input files.
-3. Redeploy the code into the runtime environment by rebuilding the extractor container and running it:
+2. To install your software dependencies, provide necessary instructions in Dockerfile using the RUN command. 
+You will need to add a line in Dockerfile to switch to the root user (```USER root```) for getting proper permissions:
+For e.g., to install ImageMagick package using apt-get, add the following commands to Dockerfile. 
+        
+        $ USER root
+        $ RUN apt-get update && apt-get install -y \ 
+                imagemagick
+PIP or other package managers can also be used to install dependencies and is the choice of the developer.
+        
+3. In particular, make sure you edit the MIME type filter (link to line) so that your extractor will only run on relevant input files.
+4. Redeploy the code into the runtime environment by rebuilding the extractor container and running it:
 
         $ docker build -t example-extractor .
         $ docker run --rm -i -t --link bdextractortemplate_rabbitmq_1:rabbitmq example-extractor
 
-4. Run tests.py again:
+5. Run tests.py again:
 
         $ ./tests.py
 
-5. Repeat 1 - 3 until tests pass!
-6. Try adding some more sample files and tests.
+6. Repeat 1 - 3 until tests pass!
+7. Try adding some more sample files and tests.
 
 ## Contribute the Extractor Tool to the Brown Dog Service
 
