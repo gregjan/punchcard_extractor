@@ -114,8 +114,8 @@ You'll also presumably modify your test code too, as you learn more about your e
 
 1. Edit extractor.py to add your data processing code in the commented areas.
 2. To install your software dependencies, provide necessary instructions in Dockerfile using the RUN command. 
-You will need to add a line in Dockerfile to switch to the root user (```USER root```) for getting proper permissions:
-For e.g., to install ImageMagick package using apt-get, add the following commands to Dockerfile. 
+You will need to add a line in Dockerfile to switch to the root user (```USER root```) for getting proper permissions. 
+For e.g., to install ImageMagick package using apt-get, add the following commands to Dockerfile: 
         
         USER root
         RUN apt-get update && apt-get install -y \ 
