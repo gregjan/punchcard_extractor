@@ -2,7 +2,7 @@
 
 This README describes how to develop and test a Brown Dog extractor tool, based on the template project in this repository.
 It also explains how you can contribute your new tool to the Brown Dog Tools Catalogue.
-Brown Dog Extractor Tools are used to analyse files and produce data points as a result.
+Brown Dog Extractor Tools are used to analyze files and extract metadata out of it.
 For example, one existing extractor uses the OpenCV software to process photographs, finding any human faces that are in a picture.
 You can find these and other extractor examples in the Brown Dog code repository.
 This repository contains a template project only. You can clone this repository to your local system and build it right away.
@@ -52,8 +52,8 @@ and RabbitMQ. The running container names will be of the format *\<project_name_
 where *\<project_name_with_only_alphabets\>* is basically the name of the folder to which the extractor template was 
 cloned ( *\<project_name\>* ) with spaces, hyphens and other special characters removed, *\<container\>* is the unique 
 name of the container that is provided in the docker-compose.yml file, and *\<count\>* specifies the instance number of 
-the docker container. For e.g. the first instance of a Mongo container started from a directory named *extractor-template* 
-will be *extractortemplate_mongo_1*. 
+the docker container. For example, the first instance of a Mongo container started from a directory *extractor-template* 
+will be named *extractortemplate_mongo_1*. 
 
         $ docker-compose up -d
     
@@ -71,7 +71,7 @@ This assumes that you are running a single Docker machine. If not, please choose
             $ docker logs <project_name_with_only_alphabets>_clowder_1 | grep signup
 
     - Find the Clowder registration link in the log output. Point your browser at that link to complete registration, choosing a password.
-    - NOTE: User registrations are persisted inside of the MongoDB container. They will remain as long as that container is not replaced with a new one.
+    - NOTE: User registrations are stored in the MongoDB container. They will remain as long as that container is not replaced with a new one.
 
 - Log in to Clowder web application using the username and password created in the above step 
 
