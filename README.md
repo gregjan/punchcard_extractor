@@ -48,7 +48,7 @@ This clones the template project into a directory with name \<project_name\>:
         $ pip install docker-compose
     
 - Start up the extractor runtime environment using Docker Compose. This starts docker containers for Clowder, MongoDB, 
-and RabbitMQ. The running container names will be of the format *\<project_name_with_only_alphabets\>_\<container\>_\<count\>*, 
+and RabbitMQ. The running container names will be of the format *\<project_name_with_only_alphabets\>\_\<container\>\_\<count\>*, 
 where *\<project_name_with_only_alphabets\>* is basically the name of the folder to which the extractor template was 
 cloned ( *\<project_name\>* ) with spaces, hyphens and other special characters removed, *\<container\>* is the unique 
 name of the container that is provided in the docker-compose.yml file, and *\<count\>* specifies the instance number of 
