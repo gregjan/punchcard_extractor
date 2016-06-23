@@ -7,5 +7,8 @@ container: Dockerfile entrypoint.sh *.py
 run:
 	docker run -t -i -e "RABBITMQ_URI=amqp://guest:guest@$(localhost)/%2f" $(name)
 
+shell:
+	docker run -t -i -e "RABBITMQ_URI=amqp://guest:guest@$(localhost)/%2f" $(name) /bin/bash
+
 compose:
 	docker run --rm -i -t --link bdextractortemplate_rabbitmq_1:rabbitmq $(name)
