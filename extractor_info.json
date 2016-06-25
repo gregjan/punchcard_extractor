@@ -1,0 +1,13 @@
+{
+    "@context": "http://clowder.ncsa.illinois.edu/contexts/extractors.jsonld",
+    "name": "wordCount",
+    "version": "1.0",
+    "description": "Brown Dog template extractor",
+    "author": "Rob Kooper <kooper@illinois.edu>",
+    "contributors": ["Gregory Jansen <jansen@umd.edu>", "Sandeep Puthanveetil Satheesan <sandeeps@illinois.edu>"],
+    "contexts": [],
+    "repository": {"repType": "git", "repUrl": "https://sandeeps@opensource.ncsa.illinois.edu/bitbucket/scm/bd/bd-extractor-template.git"},
+    "external_services": [],
+    "dependencies": [],
+    "bibtex": []
+}
