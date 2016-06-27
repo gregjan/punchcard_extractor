@@ -145,38 +145,73 @@ PIP or other package managers can also be used to install dependencies and is th
 ## Contribute the Extractor Tool to the Brown Dog Service
 
 ### JSON-LD Metadata Requirements
-The DTS returns extracted metadata in the form of JSON-LD, with a graph representing the output of each extractor tool.
-JSON-LD scopes all data to namespaces, which help keep the various tools from using the same keys for results.
+
+The Brown Dog service returns extracted metadata in the form of JSON-LD[JSON-LD](http://json-ld.org/), a JSON-based format to serialize [Linked Data](https://en.wikipedia.org/wiki/Linked_data). One important property of JSON-LD is that every value stored in the document is universally identified using a URI. In learning about JSON-LD, since JSON-LD is a concrete RDF syntax, one could start by reading about [RDF](https://www.w3.org/RDF/). But JSON-LD can also be thought of as a way of taking an existing JSON document and annotating with a @context that defines every key in the JSON document.  
+
 For example, here is a response that includes just one extractor graph in JSON-LD:
 
-        [
-          {
-            "@context": {
-              "bd": "http://dts.ncsa.illinois.edu:9000/metadata/#",
-              "@vocab" : "http://dts.ncsa.illinois.edu:9000/extractors/ncsa.cv.caltech101"
-            },
-            "bd:created_at": "Mon Mar 07 09:30:14 CST 2016",
-            "bd:agent": {
-              "@type": "cat:extractor",
-              "bd:name": "ncsa.cv.caltech101",
-              "@id": "http://dts.ncsa.illinois.edu:9000/api/extractors/ncsa.cv.caltech101"
-            },
-            "bd:content": {
-                "@id": "https://dts-dev.ncsa.illinois.edu/files/938373748293",
-                "basic_caltech101_score": [
-                "-0.813741"
-              ],
-              "basic_caltech101_category": [
-                "BACKGROUND_Google"
-              ]
-            }
-          }
-        ]
+```javascript
+{
+  "@context": [
+    "https://clowder.ncsa.illinois.edu/clowder/contexts/metadata.jsonld",
+    {
+    "cat": "https://clowder.ncsa.illinois.edu/metadata#",
+    "extractor_id": {
+      "@id": "cat:extractor/id",
+      "@type": "@id"
+    },
+    "user_id": {
+      "@id": "cat:user/id",
+      "@type": "@id"
+    },
+    "created_at": {
+      "@id": "http://purl.org/dc/terms/created",
+      "@type": "http://www.w3.org/2001/XMLSchema#dateTime"
+    },
+    "agent": {
+      "@id": "http://www.w3.org/ns/prov#Agent"
+    },
+    "user": "cat:user",
+    "extractor": "cat:extractor",
+    "content": {
+      "@id": "https://clowder.ncsa.illinois.edu/metadata#content"
+    },
+    "cal": "https://bd-api.ncsa.illinois.edu/dts/api/extractors/ncsa.cv.caltech101#"
+  }],
+  "cat:created_at": "Mon Mar 07 09:30:14 CST 2016",
+  "cat:agent": {
+    "@type": "cat:extractor",
+    "cat:name": "ncsa.cv.caltech101",
+    "@id": "https://bd-api.ncsa.illinois.edu/dts/api/extractors/ncsa.cv.caltech101"
+  },
+  "cat:content": {
+    "cal:basic_caltech101_score": [
+      "-0.813741"
+    ],
+    "cal:basic_caltech101_category": [
+      "BACKGROUND_Google"
+    ]
+  }
+}
+```
 
-If your metadata is a simple key/value map, without more depth or ordered elements, such as arrays,
-then submitting a plain JSON dictionary will be fine.
-Your metadata will be processed into JSON-LD on the server-side and tagged with your extractor as the software agent.
-All values returned by your extractor will fall in a namespace particular to your extractor.
+When writing an extractor to post extracted metadata to Clowder, the document you post has to be in the following format:
+
+```javascript
+{
+  "@context": ["https://clowder.ncsa.illinois.edu/contexts/metadata.jsonld", 
+      {... any ...}
+  ],
+  "attachedTo": {"resourceType": "file", "id": parameters["${file_id}"]},
+  "agent": {
+      "@type": "cat:extractor",
+      "extractor_id": "https://clowder.ncsa.illinois.edu/clowder/api/extractors/${extractor_id}"
+  },
+  "content": {... metadata specific to the extraction ...}
+}
+```
+
+A context definition specific to the contents of the "content" sub-document needs to be added to the context definition, along with the content sub-document, the file_id and the extractor_id.
 
 
 ## Stop Docker Containers
