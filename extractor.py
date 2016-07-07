@@ -6,7 +6,7 @@ import pyclowder.extractors as extractors
 
 
 def main():
-    global extractorName, messageType, rabbitmqExchange, rabbitmqURL, registrationEndpoints
+    global extractorName, messageType, rabbitmqExchange, rabbitmqURL
 
     # Set logging
     logging.basicConfig(format='%(levelname)-7s : %(name)s -  %(message)s', level=logging.WARN)
@@ -19,9 +19,6 @@ def main():
                      messageType=messageType,
                      rabbitmqURL=rabbitmqURL,
                      rabbitmqExchange=rabbitmqExchange)
-
-    # Register extractor info
-    extractors.register_extractor(registrationEndpoints)
 
     # Connect to RabbitMQ
     extractors.connect_message_bus(extractorName=extractorName, messageType=messageType,
