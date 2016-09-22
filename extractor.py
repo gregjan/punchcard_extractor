@@ -38,7 +38,7 @@ def process_file(parameters):
     (lines, words, characters, filename) = result.split()
 
     # Context url
-    context_url = 'https://clowder.ncsa.illinois.edu/clowder/contexts/metadata.jsonld'
+    context_url = 'https://clowder.ncsa.illinois.edu/contexts/metadata.jsonld'
 
     # Store results as metadata
     metadata = \
@@ -66,7 +66,7 @@ def process_file(parameters):
     print metadata
 
     # Upload metadata
-    extractors.upload_file_metadata(mdata=metadata, parameters=parameters)
+    extractors.upload_file_metadata_jsonld(mdata=metadata, parameters=parameters)
 
 
 if __name__ == "__main__":
