@@ -1,5 +1,5 @@
 name = $(shell basename `pwd`)
-repo = ncsa
+repo = browndog
 localhost = $(shell ip -4 addr show eth0 | grep -Po 'inet \K[\d.]+')
 
 container: Dockerfile entrypoint.sh *.py
