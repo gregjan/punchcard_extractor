@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Example extractor based on the clowder code."""
+"""Example Clowder script."""
 
 import logging
 import subprocess
