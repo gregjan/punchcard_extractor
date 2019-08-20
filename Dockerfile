@@ -1,5 +1,5 @@
 FROM clowder/pyclowder:2
-MAINTAINER Rob Kooper <kooper@illinois.edu>
+MAINTAINER Greg Jansen <jansen@umd.edu>
 
 # Setup environment variables. These are passed into the container. You can change
 # these to your setup. If RABBITMQ_URI is not set, it will try and use the rabbitmq
@@ -9,16 +9,13 @@ MAINTAINER Rob Kooper <kooper@illinois.edu>
 
 ENV RABBITMQ_URI="" \
     RABBITMQ_EXCHANGE="clowder" \
-    RABBITMQ_QUEUE="ncsa.wordcount" \
+    RABBITMQ_QUEUE="umd.punchcard" \
     REGISTRATION_ENDPOINTS="https://clowder.ncsa.illinois.edu/extractors" \
-    MAIN_SCRIPT="wordcount.py"
+    MAIN_SCRIPT="readcard.py"
 
 # Install any programs needed
-USER root
-RUN apt-get update && apt-get -y install vim nano git
-
-# Switch to clowder, copy files and be ready to run
-USER clowder
+RUN apt-get update && apt-get -y install vim nano git netcat python-pip
+RUN pip install numpy==1.16.4 Pillow punchcards docopt
 
 # command to run when starting docker
 COPY entrypoint.sh *.py extractor_info.json /home/clowder/

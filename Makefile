@@ -9,7 +9,7 @@ clean:
 	docker rmi $(name)
 
 push:
-	docker tag -f $(name) $(repo)/$(name)
+	docker tag $(name) $(repo)/$(name)
 	docker push $(repo)/$(name):latest
 
 run:

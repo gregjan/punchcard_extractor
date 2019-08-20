@@ -3,14 +3,17 @@
 """Example Clowder script."""
 
 import logging
-import subprocess
 
 from pyclowder.extractors import Extractor
 import pyclowder.files
 
+from PIL import Image
+from punchcards.normalize import find_card
+from punchcards.punchcard import PunchCard
 
-class WordCount(Extractor):
-    """Count the number of characters, words and lines in a text file."""
+
+class PunchCardReader(Extractor):
+    """Reads the line of text encoded in an image of a punchcard."""
     def __init__(self):
         Extractor.__init__(self)
 
@@ -29,19 +32,27 @@ class WordCount(Extractor):
         # Process the file and upload the results
 
         logger = logging.getLogger(__name__)
+        logger.debug("Starting to process..")
         inputfile = resource["local_paths"][0]
         file_id = resource['id']
 
-        # call actual program
-        result = subprocess.check_output(['wc', inputfile], stderr=subprocess.STDOUT)
-        (lines, words, characters, _) = result.split()
+        # call punchcards module
+        image = Image.open(inputfile)
+        logger.debug("Opened image...")
+        image = find_card(image)
 
-        # store results as metadata
         result = {
-            'lines': lines,
-            'words': words,
-            'characters': characters
+            'punchcardspec': "None",
+            'punchcardtext': ""
         }
+        if image is not None:
+            card = PunchCard(image, bright=127) # using neutral gray as threshold color
+            # store results as metadata
+            result = {
+                'punchcardspec': "IBM Model 029 Punch Card",
+                'punchcardtext': card.text
+            }
+
         metadata = self.get_metadata(result, 'file', file_id, host)
         logger.debug(metadata)
 
@@ -50,5 +61,5 @@ class WordCount(Extractor):
 
 
 if __name__ == "__main__":
-    extractor = WordCount()
+    extractor = PunchCardReader()
     extractor.start()
